@@ -1,10 +1,16 @@
 # 11209_Python_school
 
+## 2023_09_07_作業
+[作業](https://github.com/Sf-Git-2023/2023_09_07_homework/blob/main/markdown語法.ipynb)
+
 # 2023_09_11_作業
-# python基礎與資料輸出0918
+# python基礎與資料輸出
 [作業](https://github.com/Sf-Git-2023/2023_09_11_homework/blob/main/python基礎與資料輸出.ipynb)
-# 數值計算與數據輸入0918
-[作業](https://github.com/Sf-Git-2023/2023_09_11_homework/blob/main/數值計算與數據輸入5.ipynb)
+# 數值計算與數據輸入
+[作業](https://github.com/Sf-Git-2023/2023_09_11_homework/blob/main/數值計算與數據輸入.ipynb)
+
+# 2023_09_18_homework
+[作業](https://github.com/Sf-Git-2023/2023_09_18_homework/blob/main/Homework_09_18.ipynb)
 
 ## 2023-09-20 作業1
 ![作業](./lesson7_2.ipynb)
