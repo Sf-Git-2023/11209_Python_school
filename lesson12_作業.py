@@ -41,16 +41,16 @@ class Player:
                 score = DiceList[0] + 12
             else :
                 score = 0        
-        return (f'骰子1: {__dice1} ,骰子2: {__dice2} ,骰子3: {__dice3} ,骰子4:{__dice4}\n{DiceList}\n得分: {score}')
+        return (f' 骰子1: {__dice1}\n 骰子2: {__dice2}\n 骰子3: {__dice3}\n 骰子4: {__dice4}\n 得分:  {score}')
 
 #property
     @property
     def value(self):
         return self.__play()
 
-#被呼叫時傳出字串
+#回傳姓名
     def __repr__(self) -> str:
-        PlayerName = f"姓名:{self.name}"
+        PlayerName = f"姓名: {self.name}"
         return PlayerName
 
 p1 = Player('玩家1')
