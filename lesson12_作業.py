@@ -3,37 +3,45 @@ import random
 class Player:
 #attribute
     def __init__(self, name:str):
-        self.name = name
+            self.name = name
+    name:str
+    __dice1:int(1-6)
+    __dice2:int(1-6)
+    __dice3:int(1-6)
+    __dice4:int(1-6)
+
 #method
     def __play(self):
         score = 0
         while score == 0:
-            pair = 0
-            score_t = 0 
-            dice1 = random.randint(1,6)
-            dice2 = random.randint(1,6)
-            dice3 = random.randint(1,6)
-            dice4 = random.randint(1,6)
-            dice1 = 1
-            dice2 = 1
-            dice3 = 1
-            dice4 = 1
-
-            D = [dice1, dice2, dice3, dice4]
-            for x in range(3):
-                for j in range(x+1,4) :
-                    if D[x] == D[j] :
-                        pair += 1
-                        score_t += D[x]
-            if pair == 1 :
-                score = sum(D)-score_t*2
-            elif  pair == 2:
-                score = max(D)*2
-            elif pair == 6:
-                score = D[0] + 12
+            MatchCnt = 0
+            ScoreTemp = 0 
+            __dice1 = random.randint(1,6)
+            __dice2 = random.randint(1,6)
+            __dice3 = random.randint(1,6)
+            __dice4 = random.randint(1,6)
+            # 測試用
+            '''
+            __dice1 = 1
+            __dice2 = 1
+            __dice3 = 1
+            __dice4 = 1
+            '''
+            DiceList = [__dice1, __dice2, __dice3, __dice4]
+            for i in range(3):
+                for j in range(i+1,4) :
+                    if DiceList[i] == DiceList[j] :
+                        MatchCnt+= 1
+                        ScoreTemp += DiceList[i]
+            if MatchCnt == 1 :
+                score = sum(DiceList)-ScoreTemp*2
+            elif  MatchCnt == 2:
+                score = max(DiceList)*2
+            elif MatchCnt == 6:
+                score = DiceList[0] + 12
             else :
                 score = 0        
-        return f'骰子1:{dice1} 骰子2:{dice2} 骰子3:{dice3} 骰子4:{dice4}\n{D}\n得分:{score}'
+        return (f'骰子1: {__dice1} ,骰子2: {__dice2} ,骰子3: {__dice3} ,骰子4:{__dice4}\n{DiceList}\n得分: {score}')
 
 #property
     @property
@@ -47,9 +55,7 @@ class Player:
 
 p1 = Player('玩家1')
 print(p1)
-print(p1.value)
-
-print()
+print(p1.value ,'\n')
 
 p2 = Player('玩家2')
 print(p2)
