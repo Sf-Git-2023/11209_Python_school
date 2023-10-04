@@ -29,3 +29,6 @@
 
 ## 2023-10-02 作業#1
 [作業](https://flaskweb1004.onrender.com)
+
+## 2023-10-02 作業#2
+[作業](https://flaskstatic1005.onrender.com)
