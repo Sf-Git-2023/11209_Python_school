@@ -21,13 +21,29 @@ def __download() -> list[list]:
             return list(csv_reader)
         
 def cities_info() -> list[list]:
-    if len(__cities) == 0:  # 判斷是否檔案已下載, 若已下載就不再下載.
+    if len(__cities) == 0:
         try:
             data_list = __download()    
         except Exception as e:
             print(f"錯誤:{e}")
         else:
             for row in data_list:
-                if row[0] == '111':    # 有用的資料才加入 
+                if row[0] == '111':
                     __cities.append(row)
     return __cities
+
+def cityNames() -> list[str]:
+    cities = cities_info()
+    names = []
+    for row in cities:
+        cityName = row[1]
+        names.append(cityName)
+    return names
+
+def info(name:str) -> list[str]:
+    cities = cities_info()
+    for city in cities:
+        if city[1] == name:
+            return city
+
+    return []    
