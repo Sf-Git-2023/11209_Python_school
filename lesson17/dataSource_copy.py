@@ -46,4 +46,4 @@ def info(name:str) -> list[str]:
         if city[1] == name:
             return city
 
-    return []    
+    return []     
