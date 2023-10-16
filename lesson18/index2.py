@@ -18,8 +18,8 @@ class MyFrame(tk.Frame):
         self.configure(background='#9E7A7A')
         self.img = Image.open("pets.png")
         self.pets = ImageTk.PhotoImage(self.img)
-        petLabel = tk.Label(self,image=self.pets)
-        petLabel.pack()
+        petLabel = tk.Label(self,image=self.pets)   # method#2: use "Label"
+        petLabel.pack()                             # method#2: use "Label"
         self.pack(expand=1, fill='both')
 
 

@@ -18,12 +18,12 @@ class MyFrame(tk.Frame):
         self.configure(background='#9E7A7A')
         self.img = Image.open("pets.png")
         self.pets = ImageTk.PhotoImage(self.img)
-        canvas = tk.Canvas(self,
+        canvas = tk.Canvas(self,                                    # method#1: use "Canvas"
                            width=48,
                            height=48
                            )
-        canvas.create_image(24,24,image=self.pets,anchor=tk.CENTER)
-        canvas.pack()
+        canvas.create_image(24,24,image=self.pets,anchor=tk.CENTER) # method#1: use "Canvas"
+        canvas.pack()                                               # method#1: use "Canvas"
         self.pack(expand=1, fill='both')
 
 
