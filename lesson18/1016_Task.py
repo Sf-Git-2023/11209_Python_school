@@ -3,7 +3,7 @@
 '''
 import tkinter as tk
 from tkinter import ttk
-from PIL import Image, ImageTk
+# from PIL import Image, ImageTk
 from tkinter.simpledialog import Dialog
 import csv
 
