@@ -43,16 +43,8 @@ class MyFrame(tk.LabelFrame):
                
 
         self.tree.bind('<<TreeviewSelect>>',self.item_selected)
-
-    # new def "getPrice" 1017-16:10
-    def getPrice() -> list[list]:
-    with open('台積電.csv','r',encoding='UTF-8') as file:
-        Reader = csv.reader(file)
-        next(Reader)
-        list_Reader = list(Reader)
-    return list_Reader
-              
-                       
+    
+                                     
     def item_selected(self,event):
         item_index = self.tree.selection()[0]
         item_dict = self.tree.item(item_index)
@@ -73,9 +65,16 @@ class MyFrame(tk.LabelFrame):
                 tk.Label(master, text=values[4]).grid(row=4, column=1, sticky='E')
                 tk.Label(master, text=values[5]).grid(row=5, column=1, sticky='E')
                 tk.Label(master, text=values[6]).grid(row=6, column=1, sticky='E')
-            popup = Popup(self)
-        
-    
+                
+        popup = Popup(self)
+
+def getPrice() -> list[list]:
+    with open('台積電.csv','r',encoding='UTF-8') as file:
+        csvReader = csv.reader(file)
+        next(csvReader)
+        list_csvReader = list(csvReader)
+    return list_csvReader
+
 def main():    
     window = Window()
     myFrame = MyFrame(window)    
