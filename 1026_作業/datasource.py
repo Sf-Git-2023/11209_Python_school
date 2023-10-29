@@ -20,15 +20,15 @@ def __create_table(conn:sqlite3.Connection):
     cursor.execute(
          '''
         CREATE TABLE IF NOT EXISTS 空氣品質(
+            "id"	INTEGER,
             "測站編號"	TEXT NOT NULL,
             "城市"	    TEXT NOT NULL,
             "測站名稱"	TEXT NOT NULL,
             "空品區"	TEXT NOT NULL,
             "測站類型"	TEXT NOT NULL,
             "測站地址"	TEXT NOT NULL,
-            PRIMARY KEY(測站編號),
-            UNIQUE(城市,測站名稱) ON CONFLICT REPLACE
-        );
+            PRIMARY KEY("id" AUTOINCREMENT),
+            );
         '''
     )
     conn.commit()

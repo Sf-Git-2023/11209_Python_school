@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import ttk
 from tkinter import messagebox
 from threading import Timer
 import datasource
@@ -32,7 +31,7 @@ def main():
     window.title('空氣品質監測站')
     window.geometry('600x300')
     window.resizable(width=False,height=False)
-    # update_data()
+    update_data()
     window.protocol("WM_DELETE_WINDOW",lambda :on_closing(window))       
     window.mainloop()
 
