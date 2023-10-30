@@ -30,7 +30,7 @@ def __create_table(conn:sqlite3.Connection):
             "空品區"	TEXT NOT NULL,
             "測站類型"	TEXT NOT NULL,
             "測站地址"	TEXT NOT NULL,
-            PRIMARY KEY("id" AUTOINCREMENT),
+            PRIMARY KEY("id" AUTOINCREMENT)
             );
         '''
     )

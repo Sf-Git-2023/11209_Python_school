@@ -23,17 +23,17 @@ def update_data()->None:
     datasource.update_sqlite_data()
     print("做事")
     global t
-    t = Timer(20,update_data)
+    t = Timer(100,update_data)
     t.start()        
 
 def main():
-    window = Window()
-    window.title('空氣品質監測站')
-    window.geometry('600x300')
-    window.resizable(width=False,height=False)
+    # window = Window()
+    # window.title('空氣品質監測站')
+    # window.geometry('600x300')
+    # window.resizable(width=False,height=False)
     update_data()
-    window.protocol("WM_DELETE_WINDOW",lambda :on_closing(window))       
-    window.mainloop()
+    #window.protocol("WM_DELETE_WINDOW",lambda :on_closing(window))       
+    #window.mainloop()
 
 if __name__ == '__main__':
     main()
