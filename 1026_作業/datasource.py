@@ -1,6 +1,7 @@
 import password
 import requests
 import sqlite3
+import time
 
 __all__ = ['update_sqlite_data']
 
@@ -13,7 +14,9 @@ def __download_AirQuality_data()->list[dict]:
     response = requests.get(AirQuality_url)
     response.raise_for_status()
     print("下載成功")
-    return response.json()
+    data= response.json()['records']
+    return data
+    # return response.json()
 
 def __create_table(conn:sqlite3.Connection):    
     cursor = conn.cursor()
