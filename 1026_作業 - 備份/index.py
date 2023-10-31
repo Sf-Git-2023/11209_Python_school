@@ -63,14 +63,14 @@ def countdown(n:int)->None:
     while n > 0:
         print(f'倒數計時:{n}')
         n -= 1
-        time.sleep(10)
+        time.sleep(2)
 
 def main():
     update_sqlite_data()
     max_cnt = 10    # 下載10次
     count = 1
     while count != max_cnt:
-        t = threading.Thread(target=countdown,args=(6,))
+        t = threading.Thread(target=countdown,args=(2,))
         t.start()
 
         while t.is_alive():
