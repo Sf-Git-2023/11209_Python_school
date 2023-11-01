@@ -20,3 +20,6 @@ class YoubikeTreeView(ttk.Treeview):
         self.column('tot',width=50)
         self.column('sbi',width=50)
         self.column('bemp',width=50)
+
+    def update_content(self,site_datas):
+        print(site_datas)
