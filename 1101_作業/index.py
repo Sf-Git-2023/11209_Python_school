@@ -19,23 +19,21 @@ class Window(tk.Tk):
         #---------建立介面------------------------
         #print(datasource.lastest_datetime_data())
         topFrame = tk.Frame(self,relief=tk.GROOVE,borderwidth=1)
-        tk.Label(topFrame,text="台北市youbike及時資料",font=("arial", 20), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=20,pady=20)
+        tk.Label(topFrame,text="台北市youbike即時資料",font=("arial", 20), bg="#333333", fg='#ffffff',padx=10,pady=10).pack(padx=20,pady=20)
         topFrame.pack(pady=30)
         
         #--------- middle frame ------
         middleFrame = tk.Frame(self)
-        #標題
-        heading = ttk.Label(self,text="站點搜查",font=('Helvetica',20),foreground='red')
-        heading.grid(column=0, row=0, columnspan=2,padx=(20,0))
-
-        username_label = ttk.Label(self,text="站點名稱:",font=('Helvetica',12))
-        username_label.grid(column=0,row=1,pady=10,padx=(10,1))
-
-        username_entry = ttk.Entry(self)
-        username_entry.grid(column=1,row=1,padx=(0,10))
-
-        login_button = ttk.Button(self,text="OK")
-        login_button.grid(column=1,row=3,sticky=tk.E,padx=(0,10),pady=(0,20))
+        
+        name_label = tk.Label(middleFrame,text="搜尋站點名稱:",font=('Helvetica',12))
+        name_label.grid(column=0,row=0)
+       
+        self.e = tk.StringVar()          
+        tk.Entry(middleFrame, width=40, textvariable=self.e).grid(column=1, row=0)
+              
+        ok_button = tk.Button(middleFrame,text="OK", state='active',command=self.search)
+        ok_button.grid(column=2,row=0)
+        middleFrame.pack(pady=10)
 
         #--------- bottom frame ------
         bottomFrame = tk.Frame(self)
@@ -48,9 +46,16 @@ class Window(tk.Tk):
         bottomFrame.pack(pady=30)
         print(datasource.search_sitename('三'))
         
+    def search(self):
+            search_name = self.e.get()
+            result = datasource.search_sitename(search_name)
+            if result:
+                for i in self.youbikeTreeView.get_children():
+                    self.youbikeTreeView.delete(i)
 
+                for results in result:
+                    self.youbikeTreeView.insert('','end',values=results)
         
-
 
 def main():    
     def update_data(w:Window)->None:
@@ -59,7 +64,7 @@ def main():
         lastest_data = datasource.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
 
-        window.after(3*60*1000,update_data,w) #每隔3分鐘
+        window.after(1*60*1000,update_data,w) #每隔1分鐘
           
 
     window = Window()
