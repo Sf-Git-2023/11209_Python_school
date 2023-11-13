@@ -24,12 +24,13 @@ def __create_table(conn)->None:
             "id"	SERIAL,
             "測站名稱"	TEXT NOT NULL,
             "縣市名稱"	TEXT NOT NULL,
+            "微粒濃度"	TEXT NOT NULL,
             "資料時間"  TEXT NOT NULL,
             PRIMARY KEY("id")
             );
         '''
     )
-    # "PM25"	   TEXT NOT NULL,
+    # 
     conn.commit()
     cursor.close()
     print("create_table成功")
@@ -37,7 +38,7 @@ def __create_table(conn)->None:
 def __insert_data(conn,values:list[any])->None:
     cursor = conn.cursor()
     sql = '''
-    INSERT INTO 細懸浮微粒濃度(測站名稱, 縣市名稱, 資料時間)
+    INSERT INTO 細懸浮微粒濃度(測站名稱, 縣市名稱, 微粒濃度, 資料時間)
     VALUES (%s,%s,%s)
     '''
     # PM25, 
@@ -58,6 +59,6 @@ def updata_render_data()->None:
                             port="5432")
     __create_table(conn)    
     for item in data:
-        __insert_data(conn,[item['site'],item['county'],item['datacreationdate']])
+        __insert_data(conn,[item['site'],item['county'],item['pm25'],item['datacreationdate']])
     conn.close()
     # ,item['pm25']
