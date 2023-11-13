@@ -3,6 +3,7 @@ import requests
 import psycopg2
 import password as pw
 
+
 def __download_pm25_data()->list[dict]:
     '''
     下載細懸浮微粒資料（PM2.5）基本資料
@@ -12,9 +13,10 @@ def __download_pm25_data()->list[dict]:
     response = requests.get(PM25_url)
     response.raise_for_status()
     print("下載成功")
+    data= response.json()
     # data= response.json()['records']
-    # return data
-    return response.json()
+    return data
+    # return response.json()
 
 def __create_table(conn)->None:    
     cursor = conn.cursor()
@@ -58,7 +60,7 @@ def updata_render_data()->None:
                             host=pw.HOST, 
                             port="5432")
     __create_table(conn)    
-    for item in data:
+    for item in data['records']:
         __insert_data(conn,[item['site'],item['county'],item['pm25'],item['datacreationdate']])
     conn.close()
     # ,item['pm25']
