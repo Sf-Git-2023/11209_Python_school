@@ -12,23 +12,24 @@ def __download_pm25_data()->list[dict]:
     response = requests.get(PM25_url)
     response.raise_for_status()
     print("下載成功")
-    data= response.json()['records']
-    return data
+    # data= response.json()['records']
+    # return data
+    return response.json()
 
 def __create_table(conn)->None:    
     cursor = conn.cursor()
     cursor.execute(
          '''
-        CREATE TABLE IF NOT EXISTS PM25(
-            "id"	INTEGER,
+        CREATE TABLE IF NOT EXISTS 細懸浮微粒濃度(
+            "id"	SERIAL,
             "測站名稱"	TEXT NOT NULL,
             "縣市名稱"	TEXT NOT NULL,
-            "PM25"	   TEXT NOT NULL,
-            "資料時間"  DATETIME NOT NULL,
-            PRIMARY KEY("id" AUTOINCREMENT)
+            "資料時間"  TEXT NOT NULL,
+            PRIMARY KEY("id")
             );
         '''
     )
+    # "PM25"	   TEXT NOT NULL,
     conn.commit()
     cursor.close()
     print("create_table成功")
@@ -36,10 +37,10 @@ def __create_table(conn)->None:
 def __insert_data(conn,values:list[any])->None:
     cursor = conn.cursor()
     sql = '''
-    INSERT INTO PM25(測站名稱, 縣市名稱, PM25, 資料時間)
-    VALUES (%s,%s,%s,%s)
-    
+    INSERT INTO 細懸浮微粒濃度(測站名稱, 縣市名稱, 資料時間)
+    VALUES (%s,%s,%s)
     '''
+    # PM25, 
     # ON CONFLICT (站點名稱,更新時間) DO NOTHING
     cursor.execute(sql,values)    
     conn.commit()
@@ -55,7 +56,8 @@ def updata_render_data()->None:
                             password=pw.PASSWORD,
                             host=pw.HOST, 
                             port="5432")
-        
+    __create_table(conn)    
     for item in data:
-        __insert_data(conn,[item["site"],item["county"],item["pm25"],item["datacreationdate"]])
+        __insert_data(conn,[item['site'],item['county'],item['datacreationdate']])
     conn.close()
+    # ,item['pm25']
