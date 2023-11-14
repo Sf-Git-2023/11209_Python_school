@@ -43,10 +43,10 @@ class YoubikeTreeView(ttk.Treeview):
    
 class ShowDetail(Dialog):
     def __init__(self, parent, data, **kwargs):
-        self.site = data[0]
-        self.county = data[1]
-        self.pm25 = data[2]
-        self.datacreationdate = data[3]
+        self.site = data[1]
+        self.county = data[2]
+        self.pm25 = data[3]
+        self.datacreationdate = data[4]
         super().__init__(parent, **kwargs)
         
 

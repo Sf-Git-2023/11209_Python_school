@@ -78,7 +78,7 @@ def main():
         lastest_data = datasource1.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
         
-        t = Timer(6, update_data, args=(window,))
+        t = Timer(36, update_data, args=(window,))
         t.start()
 
     window = Window()
