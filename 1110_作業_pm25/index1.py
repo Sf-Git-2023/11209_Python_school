@@ -55,7 +55,7 @@ class Window(tk.Tk):
 
         bottomFrame.pack(pady=(15, 30), padx=20)
 
-    #------抓出使用者輸入的值-----#
+    #------取出使用者輸入的值-----#
     def onEntryClick(self, event):
         searchEntry = event.widget
         input_value = searchEntry.get()
