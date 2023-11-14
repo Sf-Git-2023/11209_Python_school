@@ -3,7 +3,7 @@ import psycopg2
 import password as pw
 import key_api
 
-__all__ = ["update_sqlite_data"]
+#__all__ = ["update_sqlite_data"]
 
 # -----------------download data-----------------#
 def __download_pm25_data() -> list[dict]:
@@ -41,37 +41,50 @@ def __create_table(conn) -> None:
     )
     conn.commit()
     cursor.close()
-
+    print("create_table成功")
 
 # -----------------insert data-------------------#
 def __insert_data(conn, values: list[any]) -> None:
     cursor = conn.cursor()
     sql = """
-        INSERT INTO taiwan_pm25(城市名稱, 縣市名稱, pm25, 時間) 
-        VALUES(%s,%s,%s,%s)
+        INSERT INTO taiwan_pm25(id, 城市名稱, 縣市名稱, pm25, 時間) 
+        VALUES(%s,%s,%s,%s,%s)
         ON CONFLICT (城市名稱,時間) DO NOTHING   
     """
     cursor.execute(sql, values)
     conn.commit()
     cursor.close()
 
-
 def update_render_data() -> None:
+    #  下載,並更新資料庫  #
     data = __download_pm25_data()
+    conn = psycopg2.connect(database=pw.DATABASE,
+                            user=pw.USER, 
+                            password=pw.PASSWORD,
+                            host=pw.HOST, 
+                            port="5432")
+    
     __create_table(conn)
     for item in data["records"]:
         __insert_data(
             conn,
             values=[
+                "id",
                 item["site"],
                 item["county"],
                 item["pm25"],
-                item["datacreationdate"],
-            ],
+                item["datacreationdate"]
+            ]
         )
+    conn.close()
 
 
 def lastest_datetime_data() -> list[tuple]:
+    conn = psycopg2.connect(database=pw.DATABASE,
+                            user=pw.USER, 
+                            password=pw.PASSWORD,
+                            host=pw.HOST, 
+                            port="5432")
     cursor = conn.cursor()
     sql = """
         select a.* 
@@ -81,13 +94,19 @@ def lastest_datetime_data() -> list[tuple]:
     cursor.execute(sql)
     rows = cursor.fetchall()
     cursor.close()
+    conn.close()
     return rows
 
 
 def search_sitename(word: str) -> list[tuple]:
+    conn = psycopg2.connect(database=pw.DATABASE,
+                            user=pw.USER, 
+                            password=pw.PASSWORD,
+                            host=pw.HOST, 
+                            port="5432")
     cursor = conn.cursor()
     sql = """
-        SELECT 城市名稱, MAX(時間) AS 時間,縣市名稱,pm25
+        SELECT id, 城市名稱, MAX(時間) AS 時間,縣市名稱,pm25
         FROM taiwan_pm25
         GROUP BY 城市名稱,縣市名稱,pm25
         HAVING 城市名稱 like %s

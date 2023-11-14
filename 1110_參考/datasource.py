@@ -7,7 +7,7 @@ __all__=['update_sqlite_data']
 
 #-----------------download data-----------------#
 def __download_pm25_data()->list[dict]:
-    aqi_url = f'https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key={key.apikey}'
+    aqi_url = f'https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key={key.key}'
     response = requests.get(aqi_url)
     response.raise_for_status()
     print('下載成功')
