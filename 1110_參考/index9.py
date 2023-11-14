@@ -1,9 +1,9 @@
-import datasource
-import psycopg2
+import datasource8
+#import psycopg2
 import password as pw
 
 def main():
-    datasource.updata_render_data()
+    datasource8.update_render_data()
     # datasource.updata_render_data()
 
    
