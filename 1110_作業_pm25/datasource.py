@@ -1,16 +1,16 @@
 import requests
 import psycopg2
-import pw
-import key
+import password as pw
+import key_api
 
-__all__=['update_sqlite_data']
 
-#-----------------download data-----------------#
-def __download_pm25_data()->list[dict]:
-    aqi_url = f'https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key={key.apikey}'
-    response = requests.get(aqi_url)
+
+# -----------------download data-----------------#
+def __download_pm25_data() -> list[dict]:
+    pm25_url = f"https://data.moenv.gov.tw/api/v2/aqx_p_02?api_key={key_api.apikey}"
+    response = requests.get(pm25_url)
     response.raise_for_status()
-    print('下載成功')
+    print("下載成功")
     data = response.json()
     return data
 
@@ -50,10 +50,11 @@ def update_render_data()->None:
 
     #---------------連線到postgresql----------------#
     conn = psycopg2.connect(database=pw.DATABASE,
-                                user=pw.USER, 
-                                password=pw.PASSWORD, host=pw.HOST, 
-                                port="5432")
-   
+                            user=pw.USER, 
+                            password=pw.PASSWORD, 
+                            host=pw.HOST, 
+                            port="5432")
+
     __create_table(conn)
     for item in data['records']: 
         __insert_data(conn,values=[item['site'],item['county'],item['pm25'],item['datacreationdate']])

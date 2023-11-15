@@ -3,7 +3,7 @@ import psycopg2
 import password as pw
 import key_api
 
-#__all__ = ["update_sqlite_data"]
+
 
 # -----------------download data-----------------#
 def __download_pm25_data() -> list[dict]:

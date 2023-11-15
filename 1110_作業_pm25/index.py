@@ -1,42 +1,30 @@
-import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
 import datasource
 from threading import Timer
+import time
+import threading
 
-class Window(tk.Tk):                       
-    def __init__(self, **kwargs):          
-        super().__init__(**kwargs)         
-        try:
-            datasource.update_render_data()
-        except Exception as e:                     
-            messagebox.showerror("錯誤",f'{e}\n將關閉應用程式\n請稍後再試')
-            self.destroy()                 
-    
+def countdown(n:int)->None:
+    while n > 0:
+        print(f'倒數計時:{n}')
+        n -= 1
+        time.sleep(360)
 
-t = None
 def main():
-    def on_closing():
-        print("window關閉")
-        t.cancel()
-        window.destroy()
+    datasource.update_render_data()
+    max_cnt = 24    # 下載10次
+    count = 1
+    while count != max_cnt:
+        t = threading.Thread(target=countdown,args=(6,))
+        t.start()
 
-    
-    def update_data()->None:
-        datasource.update_render_data()
-        global t
-        t = Timer(60*60,update_data)
-        t.start()  
-
-    window = Window()
-    window.title('taiwan_pm2.5')
-    window.geometry('600x300')
-    window.resizable(width=False,height=False)
-    update_data()
-    window.protocol("WM_DELETE_WINDOW",on_closing)      
-    window.mainloop()
-
-
+        while t.is_alive():
+            print('小猴子還在做事')
+            time.sleep(1)
+        else:
+            datasource.update_render_data()
+            time.sleep(1) 
+            count += 1
+            print(f"第{count}次下載資料")
 
 if __name__ == '__main__':
     main()
