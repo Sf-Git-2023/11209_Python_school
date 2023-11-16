@@ -103,13 +103,3 @@ if __name__ == "__main__":
     t = None
     window = None
     main()    
-    
-    
-    
-
-    
-
-if __name__ == "__main__":
-    t = None
-    window = None
-    main()    
