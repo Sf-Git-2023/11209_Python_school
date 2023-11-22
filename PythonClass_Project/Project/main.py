@@ -98,12 +98,16 @@ class Window(tk.Tk):
 
 def main():    
     def update_data(w:Window)->None:
-        ds.updata_sqlite_data()
+        
+        
+        
+        # a 2-09>> ds.updata_sqlite_data()
         #-----------更新treeView資料---------------
         lastest_data = ds.lastest_datetime_data()
         w.youbikeTreeView.update_content(lastest_data)
 
         w.after(10*60*1000,update_data,w) #每隔10分鐘
+        
 
     window = Window()
     window.title('台北市youbike2.0')
@@ -114,4 +118,6 @@ def main():
     window.mainloop()
 
 if __name__ == '__main__':
+    t = None        # a 2-09
+    window = None   # a 2-09
     main()
