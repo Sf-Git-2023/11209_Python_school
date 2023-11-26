@@ -95,7 +95,7 @@ def main():
 
     window = Window()
     window.title('台北市youbike2.0')
-    window.iconbitmap(default='test\images\YouBike2.0_white.ico') # 檔名字首要大寫。小寫會出錯。
+    window.iconbitmap(default='./images/YouBike2.0_white.ico') # 檔名字首要大寫。小寫會出錯。
     #window.geometry('1000x800')
     #window.resizable(width=False,height=False)
     update_data(window)
