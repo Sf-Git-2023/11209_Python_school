@@ -2,54 +2,12 @@ from tkinter.simpledialog import Dialog
 import tkintermapview 
 import tkinter as tk
 from tkinter import ttk,messagebox
+import os
+from PIL import Image, ImageTk
 
 class CustomFrame(tk.Frame):
     def __init__(self,parent,data=None,map_widget=None,**kwargs):#這裡的self是定義
         super().__init__(parent,**kwargs)
-
-
-        self.list_data=data
-        self.tree=ttk.Treeview(self,columns=['#1','#2','#3','#4'],show='headings',height=10)
-        self.tree.pack(side=tk.LEFT,padx=10)
-
-        scrollbar=tk.Scrollbar(self)
-        scrollbar.pack(side=tk.LEFT,fill=tk.Y)
-        self.tree.config(yscrollcommand=scrollbar.set)
-        scrollbar.config(command=self.tree.yview)
-
-        self.tree.heading('#1',text="地址")
-        self.tree.heading('#2',text="車號")
-        self.tree.heading('#3',text="抵達時間")
-        self.tree.heading('#4',text="離開時間")
-        # self.tree.heading('#5',text="經度")
-        # self.tree.heading('#6',text="緯度")
-
-        self.tree.column('#1',width=300,anchor=tk.W)
-        self.tree.column('#2',width=100,anchor="center")
-        self.tree.column('#3',width=70,anchor="center")
-        self.tree.column('#4',width=70,anchor="center")
-        # self.tree.column('#5',width=100,anchor=tk.E)
-        # self.tree.column('#6',width=100,anchor=tk.E)
-
-        for item in self.list_data:
-            self.tree.insert('',tk.END,values=item)
-        
-        #treeview綁定
-        def print_element(event):
-            tree = event.widget
-            curItem = tree.focus()
-            address=tree.item(curItem)["values"][0] #地址
-            x=float(tree.item(curItem)["values"][4]) #經度
-            y=float(tree.item(curItem)["values"][5]) #緯度
-
-            # selection = [tree.item(item)["values"] for item in tree.selection()]
-            # print(type(selection))
-            # print("selected items:", selection)
-            #把地圖的定位定在點選的那列資料
-            map_widget.set_position(x,y) 
-            map_widget.set_zoom(18)
-            messagebox.showinfo("已完成",f"已將{address}定位到地圖！",parent=tree)
-        self.tree.bind("<Double-1>", print_element)
 
 class MapDialog(Dialog):
     def __init__(self, parent, title = None,info=None):
@@ -109,18 +67,40 @@ class MapDialog(Dialog):
 
         self.search_bar_clear = tk.Button(master=searchFrame, width=8, text="清除", command=self.MapClear)
         self.search_bar_clear.grid(row=0, column=2, pady=10, padx=10)
+
+
         self.map_widget = tkintermapview.TkinterMapView(master,width=800, height=600, corner_radius=0)
         self.map_widget.pack(fill="both", expand=True)
-        self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=22)
+        # self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=20)
+        # 當 zoom >= 20，Google Map 的 YouBike站點 會顯示站點名稱，會跟我們的 marker text 重疊顯示。
+        self.map_widget.set_tile_server("https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", max_zoom=19)
         # map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-        self.map_widget.set_position(25.1150128,121.5361573)  # 設置初始座標(台北職能學院)
-        self.map_widget.set_zoom(15)
+        self.map_widget.set_position(25.038263362662818, 121.52830359290476)  # 設置初始座標(東門約略在台北市中心)
+        self.map_widget.set_zoom(11)
+
+        # Load images for icon
+        current_path = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+        Bike_image = ImageTk.PhotoImage(Image.open(os.path.join(current_path, "images", "bike_blue_inMkerBrown.png")).resize((35, 35)))
 
         #建立marker
         for site in self.info:
-            marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',font=('arial',10),text=f"{site['sna']}\n可借:{site['sbi']}\n可還:{site['bemp']}",command=self.click1)
+            """
+            marker = self.map_widget.set_marker(site['lat'],site['lng'],marker_color_outside='white',font=('arial',10),
+                                                text=f"{site['sna']}\n可借:{site['sbi']}\n可還:{site['bemp']}",
+                                                icon=Bike_image,command=self.click1)
+            """
+            if site['sbi'] == 0:
+                textcolor = '#FF5151'
+            else:
+                textcolor = '#0066CC'
+
+            marker = self.map_widget.set_marker(site['lat'], site['lng'],
+                                                text_color=textcolor,
+                                                font=('arial bold', 10),
+                                                text=f"{site['sna']}\n\t可借:{site['sbi']}\n\t可還:{site['bemp']}",
+                                                icon=Bike_image, command=self.click1)
             marker.data = site
-            
+
 
     def click1(self,marker):
         '''
@@ -128,16 +108,39 @@ class MapDialog(Dialog):
         marker.marker_color_outside='black'
         self.map_widget.set_position(marker.data['lat'], marker.data['lng'])
         '''
+        '''
+        Update marker text and color, and center the map on the marker's location.
+        '''
+        #marker.text = marker.data['sna']
+        #marker.marker_color_outside = 'black'
+
+        # Center the map on the marker's location
+        lat, lng = marker.data['lat'], marker.data['lng']
+        self.map_widget.set_position(lat, lng)
+        self.map_widget.set_zoom(17)
 
 
+    def center_map(self):
+        lat_sum = 0
+        lng_sum = 0
+        num_markers = len(self.marker_list)
 
+        for marker in self.marker_list:
+            lat_sum += marker.lat
+            lng_sum += marker.lng
+
+        lat_avg = lat_sum / num_markers
+        lng_avg = lng_sum / num_markers
+
+        self.map_widget.set_position(lat_avg, lng_avg)
 
 
     def buttonbox(self):
         #super().buttonbox()
         #自訂按鈕區
+        #'relief='邊框樣式，可以設定 flat[扁平]、sunken[凹陷]、raised[浮凸]、groove[邊框]、ridge、solid，預設 flat。 https://steam.oxxostudio.tw/category/python/tkinter/button.html#a3
         bottomFrame = tk.Frame(self)
-        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10).pack(padx=10,pady=20)
+        tk.Button(bottomFrame,text="關閉"+self.title()+"地圖",command=self.ok,padx=10,pady=10,activeforeground='#FFF',bg='#FFF',relief='raised').pack(padx=10,pady=20)
         bottomFrame.pack()
 
 
