@@ -34,6 +34,7 @@ class YoubikeTreeView(ttk.Treeview):
         更新內容
         '''
         #清除所有內容
+        print("1127測試update_content --數據更新")
         for i in self.get_children():
             self.delete(i)
         
@@ -47,6 +48,7 @@ class YoubikeTreeView(ttk.Treeview):
         data_dict = self.item(selectedItem)
         data_list = data_dict['values']
         title = data_list[0]
+        print("1127測試selectedItem --showDetail")
         detail = ShowDetail(self.parent,data=data_list,title=title)
         
 
