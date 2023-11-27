@@ -70,12 +70,11 @@ class Window(tk.Tk):
         input_word = searchEntry.get()
         if input_word == "":
             lastest_data = ds.lastest_datetime_data()
-            print(f"1st{lastest_data}")
+            # print(f"1st{lastest_data}")
             self.youbikeTreeView.update_content(lastest_data)
         else:
-            print("1127測試 Click--數據搜尋")
             search_data = ds.search_sitename(word=input_word)
-            print(f"2nd{search_data}")
+            # print(f"2nd{search_data}")
             self.youbikeTreeView.update_content(search_data)
 
     def areaClick(self,even):

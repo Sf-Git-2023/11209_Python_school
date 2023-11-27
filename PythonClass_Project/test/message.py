@@ -12,6 +12,7 @@ class MapDialog(Dialog):
 
 
     def getCenter(self):
+        print("1127測試 getCenter--得中心值")
         lat_l,lat_s,lng_l,lng_s = -10000,100000,-100000,100000
         for site in self.info:
             if lat_l < site["lat"]:
