@@ -8,7 +8,7 @@ import os
 from imgdata import icon_img #把圖片打包不然轉exe會出錯
 import base64
 
-#標籤
+#標籤 1128-10:53
 class TKLable(tk.Label):
     def __init__(self,parents,**kwargs):
         super().__init__(parents,**kwargs)
