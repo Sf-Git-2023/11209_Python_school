@@ -98,13 +98,8 @@ def main():
         #Window.after(10*60*10000,update_data,window) #每隔10分鐘持續七天
 
     window = Window()
-<<<<<<< HEAD
     window.title('台北市youbike2.0')
     window.iconbitmap(default='./images/YouBike2.0_white.ico') # 檔名字首要大寫。小寫會出錯。
-=======
-    window.title('台北市 YouBike 2.0 站點即時資訊')
-    window.iconbitmap(default='test\images\Bike_blue41x35.ico') # 檔名字首要大寫。小寫會出錯。
->>>>>>> 2f4650719121378454e83ac193e5a77f2ac9ffbb
     #window.geometry('1000x800')
     #window.resizable(width=False,height=False)
     update_data(window)
