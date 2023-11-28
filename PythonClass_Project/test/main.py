@@ -4,8 +4,8 @@ import tkinter.font as tkFont
 from youbikeTreeView import YoubikeTreeView
 from threading import Timer
 import datasource as ds
-from message import MapDialog
-
+from message import MapDialog 
+#-- 1128-10:58
 class TKLable(tk.Label):
     def __init__(self,parents,**kwargs):
         super().__init__(parents,**kwargs)
