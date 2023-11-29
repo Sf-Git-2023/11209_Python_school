@@ -7,19 +7,19 @@
 建立Sqlite 資料庫 “台北市youbike.db”, 及建立視窗介面顯示台北市 YouBike 2.0 站點即時資訊
 
 ## (1) 主畫面: 台北市 YouBike 2.0 站點即時資訊 (全部行政區)
-![Alt text](image.png)
+![Alt text](image_readme/image.png)
 
 ## (2) 站點名稱搜尋. 例如: 大安
 ![Alt text](image_readme/image-1.png)
 
 ## (3) 個別站點詳細資料顯示. 例如: 直接點選”大安運動中心”
-![Alt text](image-2.png)
+![Alt text](image_readme/image-2.png)
 
 ## (4) 點選行政區顯示YouBike地圖. 例如: 大安區
-![Alt text](image-3.png)
+![Alt text](image_readme/image-3.png)
 
 ## (5) YouBike地圖詳細站點資訊搜尋. 例如: 大安運動中心
-![Alt text](image-4.png)
+![Alt text](image_readme/image-4.png)
 
 ### 註:使用工具套件如下
 - tkinter
