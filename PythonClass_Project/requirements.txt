@@ -1,0 +1,21 @@
+#python -m venv .venv
+#source .venv/Scripts/activate
+#pip install -r requirements.txt
+#python.exe -m pip install --upgrade pip
+#cd Project
+#python main.py
+#cd PythonClass_Project/Project
+#cd PythonClass_Project/test
+#cd Project
+#cd test
+#cd 11209_Python_school
+#python main.py 1128-10:46
+PyInputPlus
+requests
+dash
+pandas
+gunicorn
+flask
+psycopg2-binary
+Pillow
+tkintermapview
