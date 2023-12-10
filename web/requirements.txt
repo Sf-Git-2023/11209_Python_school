@@ -1,8 +1,0 @@
-# flask --app app run --debug
-
-requests
-flask
-pandas
-gunicorn
-psycopg2-binary
-dash
