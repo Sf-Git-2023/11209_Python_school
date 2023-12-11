@@ -1,4 +1,4 @@
-from dash import Dash, html,dash_table
+from dash import Dash, html,dash_table,Input,Output,callback
 import pandas as pd
 import dash_bootstrap_components as dbc
 from . import datasource
@@ -24,6 +24,7 @@ dash2.layout = html.Div(
             html.Div([
                 html.Div([
                     dash_table.DataTable(
+                        id='main_table',
                         data=lastest_df1.to_dict('records'),
                         columns=[{'id':column,'name':column} for column in lastest_df1.columns],
                         page_size=20,
@@ -41,13 +42,29 @@ dash2.layout = html.Div(
                                  'width': '5%'},
                                 {   'if': {'column_id': '可還'},
                                  'width': '5%'},
-                        ]
+                        ],
+                        row_selectable="single",
+                        selected_rows=[]
                     ),
                 ],className="col text-center")
             ],
             className="row",
             style={"paddingTop":'2rem'}),
+            html.Div([
+                html.H5("這是第3列",className="col",id='showMessage')
+            ],
+            className="row",
+            style={"paddingTop":'2rem'})
+
         ])
     ],
     className="container-lg"
     )
+
+@callback(
+      Output('showMessage','children'),
+      Input('main_table','selected_rows')  
+)
+def selectedRow(selected_rows):
+    print(selected_rows)
+    return str(selected_rows)
