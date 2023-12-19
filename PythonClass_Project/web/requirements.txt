@@ -1,8 +1,8 @@
-# flask --app app run --debug
-
 requests
 flask
-pandas
-gunicorn
-psycopg2-binary
 dash
+gunicorn
+pandas
+dash-bootstrap-components
+psycopg2-binary
+# flask --app app run --debug
