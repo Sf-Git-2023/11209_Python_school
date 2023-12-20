@@ -3,13 +3,12 @@
 #pip install -r requirements.txt
 #python.exe -m pip install --upgrade pip
 #cd Project
-#python main.py
 #cd PythonClass_Project/Project
 #cd PythonClass_Project/test
 #cd Project
 #cd test
 #cd 11209_Python_school
-#python main.py 1128-10:46
+#python main.py
 PyInputPlus
 requests
 dash
@@ -19,3 +18,4 @@ flask
 psycopg2-binary
 Pillow
 tkintermapview
+PyQt5
